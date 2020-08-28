@@ -13,7 +13,7 @@ export interface BookingIndexYear {
     [key: string]: BookingIndexMonth;
 }
 
-export interface BookingIndex {
+export interface BookingsIndex {
     [ket: string]: BookingIndexYear;
 }
 export interface Booking {
@@ -32,11 +32,11 @@ export interface Listing {
     host: string;
     type: ListingType;
     address: string;
-    counry: string;
+    country: string;
     admin: string;
     city: string;
     bookings: ObjectId[];
-    bookingIndex: BookingIndex;
+    bookingsIndex: BookingsIndex;
     price: number;
     numOfGuests: number;
 }
