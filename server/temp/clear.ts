@@ -1,9 +1,6 @@
 require("dotenv").config();
 
-import { ObjectId } from "mongodb";
 import { connectDatabase } from "../src/database";
-import { Listing, ListingType, User } from "../src/lib/types";
-
 
 const clear = async () => {
     try {
