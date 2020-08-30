@@ -26,6 +26,4 @@ export const Google = {
 
         return { user: data };
     },
-
-    // logOut: async (code: string) => {}
 }
