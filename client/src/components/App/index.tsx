@@ -22,7 +22,13 @@ export const App = () => {
     const [logIn, { error }] = useMutation<LogInData, LogInVariables>(LOG_IN, {
       onCompleted: data => {
         if (data && data.logIn) {
-          setViewer(data.logIn)
+          setViewer(data.logIn);
+
+          if (data.logIn.token) {
+            sessionStorage.setItem("token", data.logIn.token);
+          } else {
+            sessionStorage.removeItem("token");
+          }
         }
       }
     });
