@@ -1,8 +1,9 @@
-import React, { useState } from "./node_modules/react";
+import React, { useState } from "react";
 import {Home, Host, Listing, Listings, Login,  NotFound, User } from '../../pages';
+import { AppHeader } from "../AppHeader";
 import { Viewer } from "../../lib/types";
-import { BrowserRouter, Switch, Route } from "./node_modules/react-router-dom";
-import { Layout } from "./node_modules/antd";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { Affix, Layout } from "antd";
 
 const initialViewer: Viewer = {
     id: null,
@@ -17,6 +18,9 @@ export const App = () => {
     return (
       <BrowserRouter>
         <Layout id="app">
+            <Affix offsetTop={0}>
+              <AppHeader viewer={viewer} setViewer={setViewer} />
+            </Affix>
             <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/host" component={Host} />
