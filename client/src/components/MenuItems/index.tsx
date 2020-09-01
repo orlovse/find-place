@@ -29,7 +29,7 @@ export const MenuItems = ({viewer, setViewer}: Props) => {
     });
 
     const handleLogOut = () => {
-        logOut();å
+        logOut();
     }
 
     const subMenuLogin = viewer.id && viewer.avatar? (
