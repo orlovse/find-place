@@ -6,7 +6,7 @@ const { Header } = Layout;
 
 export const AppHeaderSkeleton = () => {
     return (
-        <Header>
+        <Header style={{background: "white"}}>
             <HomeOutlined />
         </Header>
     );
