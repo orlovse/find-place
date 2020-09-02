@@ -9,7 +9,6 @@ import { AuthUrl as AuthUrlData } from "../../lib/graphql/queries/AuthUrl/__gene
 import { Viewer } from "../../lib/types";
 import { displaySuccessNotification, displayErrorMessage } from "../../lib/utils";
 import { Button, Card, Layout, Spin, Typography } from "antd";
-import { from } from "apollo-boost";
 
 interface Props {
     setViewer: (viewer: Viewer) => void;
