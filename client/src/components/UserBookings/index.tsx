@@ -21,7 +21,7 @@ export const UserBookings = ({
     const total = userBookings ? userBookings.total : null;
     const result = userBookings ? userBookings.result : null;
 
-    const userBookingsList = total && result ? (
+    const userBookingsList = userBookings ? (
         <List 
             grid = {{
                 gutter: 8,
@@ -29,12 +29,12 @@ export const UserBookings = ({
                 sm: 2,
                 lg: 4
             }}
-            dataSource = {result}
+            dataSource = {result ? result : undefined}
             locale = {{ emptyText: "You haven't made any bookings!" }}
             pagination={{
                 position: "top",
                 current: bookingsPage,
-                total,
+                total: total ? total : undefined,
                 defaultPageSize: limit,
                 hideOnSinglePage: true,
                 showLessItems: true,

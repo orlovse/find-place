@@ -52,9 +52,9 @@ export const User = ({
     }
 
     const user = data ? data.user : null;
-    // console.log(viewer)
-    // const viewerIsUser = viewer.id === match.params.id;
-    const viewerIsUser = false;
+    
+    const viewerIsUser = viewer.id === match.params.id;
+    // const viewerIsUser = false;
 
     const userListings = user ? user.listings : null;
     const userBookings = user ? user.bookings : null; 
