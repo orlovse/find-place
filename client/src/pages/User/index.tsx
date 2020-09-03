@@ -4,7 +4,7 @@ import { useQuery } from "@apollo/react-hooks";
 import { USER } from "../../lib/graphql/queries";
 import { User as UserData, UserVariables } from "../../lib/graphql/queries/User/__generated__/User";
 import { Viewer } from "../../lib/types";
-import { ErrorBanner ,PageSkeleton ,UserBookings ,UserListings ,UserProfile } from "../../components";
+import { ErrorBanner, PageSkeleton, UserBookings, UserListings, UserProfile } from "../../components";
 import { Col, Layout, Row} from "antd";
 
 interface Props {
