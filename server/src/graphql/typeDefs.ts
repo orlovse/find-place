@@ -14,11 +14,6 @@ export const typeDefs = gql`
         checkOut: String!
     }
 
-    type Listings {
-        total: Int!
-        result: [Listing!]!
-    }
-
     enum ListingType {
         APARTMENT
         HOUSE
@@ -37,11 +32,19 @@ export const typeDefs = gql`
         host: User!
         type: ListingType!
         address: String!
+        country: String!
+        admin: String!
         city: String!
         bookings(limit: Int!, page: Int!): Bookings
         bookingsIndex: String!
         price: Int!
         numOfGuests: Int!
+    }
+
+    type Listings {
+        region: String
+        total: Int!
+        result: [Listing!]!
     }
 
     type User {
@@ -71,7 +74,7 @@ export const typeDefs = gql`
         authUrl: String!
         user(id: ID!): User!
         listing(id: ID!): Listing!
-        listings(filter: ListingsFilter!, limit: Int!, page: Int!): Listings!
+        listings(location: String, filter: ListingsFilter!, limit: Int!, page: Int!): Listings!
     }
 
     type Mutation {
