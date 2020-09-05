@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Link, RouteComponentProps } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
-import { ListingCard, ListingsFilters } from "../../components";
+import { ListingCard, ListingsFilters, ListingsPagination } from "../../components";
 import { LISTINGS } from "../../lib/graphql/queries";
 import { Listings as ListingsData, ListingsVariables } from "../../lib/graphql/queries/Listings/__generated__/Listings";
 import { ListingsFilter } from "../../lib/graphql/globalTypes";
-import { Layout, List, Typography } from "antd";
+import { Affix, Col, Layout, List, Row, Typography } from "antd";
 
 interface MatchParams {
     location: string;
@@ -18,12 +18,13 @@ const PAGE_LIMIT = 8;
 
 export const Listings = ({ match }: RouteComponentProps<MatchParams>) => {
     const [filter, setFilter] = useState(ListingsFilter.PRICE_LOW_TO_HIGH);
+    const [page, setPage] = useState(1);
     const { data } = useQuery<ListingsData, ListingsVariables>(LISTINGS, {
         variables: {
             location: match.params.location,
             filter,
             limit: PAGE_LIMIT,
-            page: 1
+            page
         }
     });
 
@@ -31,7 +32,22 @@ export const Listings = ({ match }: RouteComponentProps<MatchParams>) => {
     const listingsRegion = listings ? listings.region : null;
     const listingsSectionElement = listings && listings.result.length ? (
         <div>
-            <ListingsFilters filter={filter} setFilter={setFilter} />
+            <Affix offsetTop={64}>
+                <Row justify="space-between">
+                    <Col>
+                        <ListingsFilters filter={filter} setFilter={setFilter} />
+                    </Col>
+                    <Col>
+                        <ListingsPagination 
+                            total={listings.total}
+                            page={page} 
+                            limit={PAGE_LIMIT}
+                            setPage={setPage} 
+                        />                    
+                    </Col>                    
+                </Row>
+            </Affix>
+
             <List 
                 grid={{
                     gutter: 8,
