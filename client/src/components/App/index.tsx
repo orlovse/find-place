@@ -6,7 +6,7 @@ import { LOG_IN } from "../../lib/graphql/mutations";
 import { LogIn as LogInData, LogInVariables } from "../../lib/graphql/mutations/LogIn/__generated__/LogIn";
 import { useMutation } from "@apollo/react-hooks";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import { Affix, Layout, Spin } from "antd";
+import { Affix, Layout, Spin, Row } from "antd";
 import { AppHeaderSkeleton, ErrorBanner } from "../../components";
 
 const initialViewer: Viewer = {
@@ -41,9 +41,11 @@ export const App = () => {
 
     if (!viewer.didRequest && !error) {
       return (
-        <Layout>
+        <Layout style={{height: "100%"}}>
           <AppHeaderSkeleton />
-          <Spin size="large" tip="Launching..." />
+          <Row justify="center" align="middle" style={{height: "100%"}}>
+            <Spin size="large" tip="Launching..." />
+          </Row>
         </Layout>
       )
     }

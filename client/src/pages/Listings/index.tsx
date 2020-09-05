@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, RouteComponentProps } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
-import { ListingCard, ListingsFilters, ListingsPagination } from "../../components";
+import { ErrorBanner, ListingCard, ListingsFilters, ListingsPagination, ListingsSkeleton } from "../../components";
 import { LISTINGS } from "../../lib/graphql/queries";
 import { Listings as ListingsData, ListingsVariables } from "../../lib/graphql/queries/Listings/__generated__/Listings";
 import { ListingsFilter } from "../../lib/graphql/globalTypes";
@@ -19,7 +19,7 @@ const PAGE_LIMIT = 8;
 export const Listings = ({ match }: RouteComponentProps<MatchParams>) => {
     const [filter, setFilter] = useState(ListingsFilter.PRICE_LOW_TO_HIGH);
     const [page, setPage] = useState(1);
-    const { data } = useQuery<ListingsData, ListingsVariables>(LISTINGS, {
+    const { loading, data, error } = useQuery<ListingsData, ListingsVariables>(LISTINGS, {
         variables: {
             location: match.params.location,
             filter,
@@ -27,6 +27,23 @@ export const Listings = ({ match }: RouteComponentProps<MatchParams>) => {
             page
         }
     });
+
+    if (loading) {
+        return (
+            <Content>
+                <ListingsSkeleton />
+            </Content>
+        );
+    }
+
+    if (error) {
+        return (
+            <Content>
+                <ErrorBanner description="We couldn't find anything matching your search or have ancountered an error. Try searching again with more common keywords." />
+                <ListingsSkeleton />
+            </Content>
+        );
+    }
 
     const listings = data ? data.listings : null;
     const listingsRegion = listings ? listings.region : null;

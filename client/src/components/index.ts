@@ -11,6 +11,7 @@ export * from "./ListingCard";
 export * from "./ListingDetails";
 export * from "./ListingsFilters";
 export * from "./ListingsPagination";
+export * from "./ListingsSkeleton";
 export * from "./PageSkeleton";
 export * from "./UserBookings";
 export * from "./UserListings";
