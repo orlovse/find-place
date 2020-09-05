@@ -9,7 +9,7 @@ const auth = new google.auth.OAuth2(
 
 const maps = createClient({ key: `${process.env.G_GEOCODE_KEY}`, Promise });
 
-const parseAddress = (addressComponents: AddressComponent[]) => {
+const parseAddress = (addressComponents: AddressComponent<any>[]) => {
     let country = null;
     let admin = null;
     let city = null;
