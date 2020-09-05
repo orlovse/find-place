@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, RouteComponentProps } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
-import { ListingCard } from "../../components";
+import { ListingCard, ListingsFilters } from "../../components";
 import { LISTINGS } from "../../lib/graphql/queries";
 import { Listings as ListingsData, ListingsVariables } from "../../lib/graphql/queries/Listings/__generated__/Listings";
 import { ListingsFilter } from "../../lib/graphql/globalTypes";
@@ -17,10 +17,11 @@ const { Paragraph, Text, Title } = Typography;
 const PAGE_LIMIT = 8;
 
 export const Listings = ({ match }: RouteComponentProps<MatchParams>) => {
+    const [filter, setFilter] = useState(ListingsFilter.PRICE_LOW_TO_HIGH);
     const { data } = useQuery<ListingsData, ListingsVariables>(LISTINGS, {
         variables: {
             location: match.params.location,
-            filter: ListingsFilter.PRICE_LOW_TO_HIGH,
+            filter,
             limit: PAGE_LIMIT,
             page: 1
         }
@@ -29,23 +30,26 @@ export const Listings = ({ match }: RouteComponentProps<MatchParams>) => {
     const listings = data ? data.listings : null;
     const listingsRegion = listings ? listings.region : null;
     const listingsSectionElement = listings && listings.result.length ? (
-        <List 
-            grid={{
-                gutter: 8,
-                xs: 1,
-                sm: 2,
-                md: 2,
-                lg: 4,
-                xl: 4,
-                xxl: 4
-            }}
-            dataSource={listings.result}
-            renderItem={listing => (
-                <List.Item>
-                    <ListingCard listing={listing} />
-                </List.Item>
-            )}
-        />
+        <div>
+            <ListingsFilters filter={filter} setFilter={setFilter} />
+            <List 
+                grid={{
+                    gutter: 8,
+                    xs: 1,
+                    sm: 2,
+                    md: 2,
+                    lg: 4,
+                    xl: 4,
+                    xxl: 4
+                }}
+                dataSource={listings.result}
+                renderItem={listing => (
+                    <List.Item>
+                        <ListingCard listing={listing} />
+                    </List.Item>
+                )}
+            />
+        </div>
     ) : (
         <div>
             <Paragraph>It appears that no listings have yet been created for{" "}
