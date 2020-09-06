@@ -206,7 +206,7 @@ export const viewerResolvers: IResolvers = {
 
                 const updateRes = await db.users.findOneAndUpdate(
                     { _id: viewer._id },
-                    { $set: { walletId: null } },
+                    { $set: { walletId: undefined } },
                     { returnOriginal: false }
                 );
 
