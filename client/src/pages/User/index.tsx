@@ -9,6 +9,7 @@ import { Col, Layout, Row} from "antd";
 
 interface Props {
     viewer: Viewer;
+    setViewer: (viewer: Viewer) => void;
 }
 
 interface MatchParams {
@@ -20,12 +21,13 @@ const PAGE_LIMIT = 4;
 
 export const User = ({ 
     viewer, 
+    setViewer,
     match 
 }: Props & RouteComponentProps<MatchParams>) => {
     const [listingsPage, setListingsPage] = useState(1);
     const [bookingsPage, setBookingsPage] = useState(1);
     
-    const { data, loading, error } = useQuery<UserData, UserVariables>(USER, {
+    const { data, loading, error, refetch } = useQuery<UserData, UserVariables>(USER, {
         variables: {
             id: match.params.id,
             bookingsPage,
@@ -33,6 +35,10 @@ export const User = ({
             limit: PAGE_LIMIT
         }
     });
+
+    const handleUserRefetch = async () => {
+        await refetch();
+    }
 
     const stripeError = new URL(window.location.href).searchParams.get("stripe_error");
     const stripeErrorBanner = stripeError ? (
@@ -59,12 +65,19 @@ export const User = ({
     const user = data ? data.user : null;
     
     const viewerIsUser = viewer.id === match.params.id;
-    // const viewerIsUser = false;
 
     const userListings = user ? user.listings : null;
     const userBookings = user ? user.bookings : null; 
 
-    const userProfileElement = user ? <UserProfile user={user} viewerIsUser={viewerIsUser} /> : null;
+    const userProfileElement = user 
+        ? <UserProfile 
+            user={user} 
+            viewer={viewer}
+            viewerIsUser={viewerIsUser} 
+            setViewer={setViewer}
+            handleUserRefetch={handleUserRefetch}
+          /> 
+        : null;
     
     const userListingsElement = userListings ? (
         <UserListings 
