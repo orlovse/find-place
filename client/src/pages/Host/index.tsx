@@ -227,12 +227,6 @@ const beforeImageUpload = (file: File) => {
     return fileIsValidImage && fileIsValidSize;
 };
 
-// function getBase64(img, callback) {
-//     const reader = new FileReader();
-//     reader.addEventListener('load', () => callback(reader.result));
-//     reader.readAsDataURL(img);
-//   }
-
 const getBase64Value = (
     img: any,
     callback: (imageBase64Value: string) => void
