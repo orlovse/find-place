@@ -1,21 +1,33 @@
 import React, { useState } from "react";
 import { RouteComponentProps } from "react-router-dom";
+import { Moment } from "moment";
 import { useQuery } from "@apollo/react-hooks";
 import { LISTING } from "../../lib/graphql/queries";
 import { Listing as ListingData, ListingVariables } from "../../lib/graphql/queries/Listing/__generated__/Listing";
-import { ErrorBanner, ListingBookings, ListingCreateBooking, ListingDetails, PageSkeleton } from "../../components";
-import { Moment } from "moment";
+import { Viewer } from "../../lib/types";
+import { 
+    ErrorBanner, 
+    ListingBookings, 
+    ListingCreateBooking, 
+    ListingDetails, 
+    PageSkeleton 
+} from "../../components";
 import { Col, Layout, Row } from "antd";
+
 
 
 interface MatchParams {
     id: string;
 }
 
+interface Props {
+    viewer: Viewer;
+}
+
 const { Content } = Layout;
 const PAGE_LIMIT = 3;
 
-export const Listing = ({ match }: RouteComponentProps<MatchParams> ) => {
+export const Listing = ({ viewer, match }: Props & RouteComponentProps<MatchParams> ) => {
     const [bookingsPage, setBookingsPage] = useState(1);
     const [checkInDate, setCheckInDate] = useState<Moment | null>(null);
     const [checkOutDate, setCheckOutDate] = useState<Moment | null>(null);
@@ -59,15 +71,18 @@ export const Listing = ({ match }: RouteComponentProps<MatchParams> ) => {
         /> 
         : null;
 
-        const listingCreateBookingElement = listing 
-        ? <ListingCreateBooking 
-            price={listing.price} 
-            checkInDate={checkInDate}
-            checkOutDate={checkOutDate}
-            setCheckInDate={setCheckInDate}
-            setCheckOutDate={setCheckOutDate}
-        /> 
-        : null;
+        const listingCreateBookingElement = listing ? (
+            <ListingCreateBooking 
+                viewer={viewer}
+                host={listing.host}
+                price={listing.price} 
+                bookingsIndex={listing.bookingsIndex}
+                checkInDate={checkInDate}
+                checkOutDate={checkOutDate}
+                setCheckInDate={setCheckInDate}
+                setCheckOutDate={setCheckOutDate}
+            /> 
+        ) : null;
 
     return (
         <Content>
