@@ -9,6 +9,7 @@ import {
     ErrorBanner, 
     ListingBookings, 
     ListingCreateBooking, 
+    ListingCreateBookingModal, 
     ListingDetails, 
     PageSkeleton 
 } from "../../components";
@@ -31,6 +32,7 @@ export const Listing = ({ viewer, match }: Props & RouteComponentProps<MatchPara
     const [bookingsPage, setBookingsPage] = useState(1);
     const [checkInDate, setCheckInDate] = useState<Moment | null>(null);
     const [checkOutDate, setCheckOutDate] = useState<Moment | null>(null);
+    const [modalVisible, setModalVisible] = useState(false);
 
     const { loading, data, error } = useQuery<ListingData, ListingVariables>(LISTING, {
         variables: {
@@ -81,7 +83,18 @@ export const Listing = ({ viewer, match }: Props & RouteComponentProps<MatchPara
                 checkOutDate={checkOutDate}
                 setCheckInDate={setCheckInDate}
                 setCheckOutDate={setCheckOutDate}
+                setModalVisible={setModalVisible} 
             /> 
+        ) : null;
+
+        const listingCreateBookingModalElement = listing && checkInDate && checkOutDate ? (
+            <ListingCreateBookingModal 
+                price={listing.price}
+                modalVisible={modalVisible} 
+                checkInDate={checkInDate}
+                checkOutDate={checkOutDate}
+                setModalVisible={setModalVisible} 
+            />
         ) : null;
 
     return (
@@ -95,6 +108,7 @@ export const Listing = ({ viewer, match }: Props & RouteComponentProps<MatchPara
                     {listingCreateBookingElement}
                 </Col>
             </Row>
+            {listingCreateBookingModalElement}
         </Content>
     )
 }
