@@ -12,7 +12,7 @@ interface Props {
     viewer: Viewer;
     viewerIsUser: boolean;
     setViewer: (viewer: Viewer) => void;
-    handleUserRefetch: () => void;
+    handleUserRefetch: () => Promise<void>;
 }
 
 const stripeAuthUrl = `https://connect.stripe.com/oauth/authorize?response_type=code&client_id=${process.env.REACT_APP_S_CLIENT_ID}&scope=read_write`;
@@ -86,8 +86,9 @@ export const UserProfile = ({user, viewer, viewerIsUser, setViewer, handleUserRe
             {additionalDetails}
         </div>
     ) : null;
+
     return (
-        <Card>
+        <Card style={{textAlign: "center"}}>
             <Avatar size={100} src={user.avatar} />
             <Divider />
             <Title level={4}>Details</Title>

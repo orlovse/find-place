@@ -26,7 +26,7 @@ export const ListingCard = ({ listing }: Props) => {
                 width: "100%",
                 height: "195px",
                 backgroundSize: "cover",
-                backgroundPosition: "50%"
+                backgroundPosition: "50%",
             }} />}>
                 <Title level={4} >
                     {formatListingPrice(price)}
