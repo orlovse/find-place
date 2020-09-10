@@ -5,10 +5,12 @@ import {
     Modal,
     Typography
 } from "antd";
+import { CardElement, injectStripe, ReactStripeElements } from "react-stripe-elements";
 import { KeyOutlined } from "@ant-design/icons";
 import moment, { Moment } from "moment";
 import { formatListingPrice } from "../../lib/utils";
 
+import styles from './index.module.css';
 
 interface Props {
     price: number;
@@ -25,10 +27,20 @@ export const ListingCreateBookingModal = ({
     modalVisible, 
     checkInDate, 
     checkOutDate, 
-    setModalVisible 
-}: Props) => {
+    setModalVisible,
+    stripe
+}: Props & ReactStripeElements.InjectedStripeProps) => {
     const daysBooked = checkOutDate.diff(checkInDate, "days") + 1;
     const listingPrice = price * daysBooked;
+
+    const handleCreateBooking = async () => {
+        if (!stripe) {
+            return;
+        }
+
+        let { token: stripeToken } = await stripe.createToken();
+        console.log(stripeToken);
+    }
     
     return (
         <Modal
@@ -37,7 +49,7 @@ export const ListingCreateBookingModal = ({
             footer={null}
             onCancel={() => setModalVisible(false)}
         >
-            <div>
+            <div className={styles.center}>
                 <Title>
                     <KeyOutlined />
                 </Title>
@@ -67,9 +79,11 @@ export const ListingCreateBookingModal = ({
                 </Paragraph>
 
                 <Divider />
-
-                <Button size="large" type="primary">Book</Button>
+                <CardElement hidePostalCode className={styles.card} />
+                <Button size="large" type="primary" onClick={handleCreateBooking}>Book</Button>
             </div>
         </Modal>
     )
 }
+
+export const WrappedListingCreateBookingModal = injectStripe(ListingCreateBookingModal);

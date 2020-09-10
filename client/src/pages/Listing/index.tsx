@@ -9,7 +9,7 @@ import {
     ErrorBanner, 
     ListingBookings, 
     ListingCreateBooking, 
-    ListingCreateBookingModal, 
+    WrappedListingCreateBookingModal as ListingCreateBookingModal, 
     ListingDetails, 
     PageSkeleton 
 } from "../../components";

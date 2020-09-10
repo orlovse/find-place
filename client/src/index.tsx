@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import ApolloClient from "apollo-boost";
-import { ApolloProvider } from "react-apollo"
+import { ApolloProvider } from "react-apollo";
+import { StripeProvider } from "react-stripe-elements";
 import { App } from "./components";
 import * as serviceWorker from './serviceWorker';
 import "./styles/index.css";
@@ -21,7 +22,9 @@ const client = new ApolloClient({
 
 ReactDOM.render(
     <ApolloProvider client={client}>
-      <App />
+      <StripeProvider apiKey={process.env.REACT_APP_S_PABLISHABLE_KEY as string}>
+        <App />
+      </StripeProvider>
     </ApolloProvider>,
   document.getElementById('root')
 );

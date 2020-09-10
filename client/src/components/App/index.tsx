@@ -1,4 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useMutation } from "@apollo/react-hooks";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { Affix, Layout, Spin, Row } from "antd";
+import { Elements } from "react-stripe-elements";
+import { Viewer } from "../../lib/types";
+import { LOG_IN } from "../../lib/graphql/mutations";
+import { LogIn as LogInData, LogInVariables } from "../../lib/graphql/mutations/LogIn/__generated__/LogIn";
 import {
   Home, 
   Host, 
@@ -9,14 +16,12 @@ import {
   Stripe, 
   User 
 } from '../../pages';
-import { AppHeader } from "../AppHeader";
-import { Viewer } from "../../lib/types";
-import { LOG_IN } from "../../lib/graphql/mutations";
-import { LogIn as LogInData, LogInVariables } from "../../lib/graphql/mutations/LogIn/__generated__/LogIn";
-import { useMutation } from "@apollo/react-hooks";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
-import { Affix, Layout, Spin, Row } from "antd";
-import { AppHeaderSkeleton, ErrorBanner } from "../../components";
+
+import { 
+  AppHeader, 
+  AppHeaderSkeleton, 
+  ErrorBanner 
+} from "../../components";
 
 const initialViewer: Viewer = {
     id: null,
@@ -64,44 +69,48 @@ export const App = () => {
       : null
 
     return (
-      <BrowserRouter>
-        <Layout id="app">
-            { logInErrorBannerElement }
-            <Affix offsetTop={0}>
-              <AppHeader viewer={viewer} setViewer={setViewer} />
-            </Affix>
-            <Switch>
-            <Route exact path="/" component={Home} />
-            <Route 
-              exact 
-              path="/host" 
-              render={props => <Host {...props} viewer={viewer} /> } 
-            />
-            <Route 
-              exact 
-              path="/listing/:id"
-              render={props => <Listing {...props} viewer={viewer} /> }
-            />
-            <Route exact path="/listings/:location?" component={Listings} />
-            <Route 
-              exact 
-              path="/login" 
-              render={props => <Login {...props} 
-              setViewer={setViewer} />} 
-            />
-            <Route 
-              exact 
-              path="/stripe" 
-              render={props => <Stripe {...props} viewer={viewer} setViewer={setViewer} />} 
-            />
-            <Route 
-              exact 
-              path="/user/:id" 
-              render={props => <User {...props} viewer={viewer} setViewer={setViewer} />} 
-            />
-            <Route component={NotFound} />
-            </Switch>
-        </Layout>
-      </BrowserRouter>
+        <BrowserRouter>
+          <Layout id="app">
+              { logInErrorBannerElement }
+              <Affix offsetTop={0}>
+                <AppHeader viewer={viewer} setViewer={setViewer} />
+              </Affix>
+              <Switch>
+              <Route exact path="/" component={Home} />
+              <Route 
+                exact 
+                path="/host" 
+                render={props => <Host {...props} viewer={viewer} /> } 
+              />
+              <Route 
+                exact 
+                path="/listing/:id"
+                render={props => (
+                  <Elements>
+                    <Listing {...props} viewer={viewer} /> 
+                  </Elements>
+                )}
+              />
+              <Route exact path="/listings/:location?" component={Listings} />
+              <Route 
+                exact 
+                path="/login" 
+                render={props => <Login {...props} 
+                setViewer={setViewer} />} 
+              />
+              <Route 
+                exact 
+                path="/stripe" 
+                render={props => <Stripe {...props} viewer={viewer} setViewer={setViewer} />} 
+              />
+              <Route 
+                exact 
+                path="/user/:id" 
+                render={props => <User {...props} viewer={viewer} setViewer={setViewer} />} 
+              />
+              <Route component={NotFound} />
+              </Switch>
+          </Layout>
+        </BrowserRouter>
     )
   }
