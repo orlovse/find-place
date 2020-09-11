@@ -76,39 +76,39 @@ export const App = () => {
                 <AppHeader viewer={viewer} setViewer={setViewer} />
               </Affix>
               <Switch>
-              <Route exact path="/" component={Home} />
-              <Route 
-                exact 
-                path="/host" 
-                render={props => <Host {...props} viewer={viewer} /> } 
-              />
-              <Route 
-                exact 
-                path="/listing/:id"
-                render={props => (
-                  <Elements>
-                    <Listing {...props} viewer={viewer} /> 
-                  </Elements>
-                )}
-              />
-              <Route exact path="/listings/:location?" component={Listings} />
-              <Route 
-                exact 
-                path="/login" 
-                render={props => <Login {...props} 
-                setViewer={setViewer} />} 
-              />
-              <Route 
-                exact 
-                path="/stripe" 
-                render={props => <Stripe {...props} viewer={viewer} setViewer={setViewer} />} 
-              />
-              <Route 
-                exact 
-                path="/user/:id" 
-                render={props => <User {...props} viewer={viewer} setViewer={setViewer} />} 
-              />
-              <Route component={NotFound} />
+                <Route exact path="/" component={Home} />
+                <Route 
+                  exact 
+                  path="/host" 
+                  render={props => <Host {...props} viewer={viewer} /> } 
+                />
+                <Route 
+                  exact 
+                  path="/listing/:id"
+                  render={props => (
+                    <Elements>
+                      <Listing {...props} viewer={viewer} /> 
+                    </Elements>
+                  )}
+                />
+                <Route exact path="/listings/:location?" component={Listings} />
+                <Route 
+                  exact 
+                  path="/login" 
+                  render={props => <Login {...props} 
+                  setViewer={setViewer} />} 
+                />
+                <Route 
+                  exact 
+                  path="/stripe" 
+                  render={props => <Stripe {...props} viewer={viewer} setViewer={setViewer} />} 
+                />
+                <Route 
+                  exact 
+                  path="/user/:id" 
+                  render={props => <User {...props} viewer={viewer} setViewer={setViewer} />} 
+                />
+                <Route component={NotFound} />
               </Switch>
           </Layout>
         </BrowserRouter>

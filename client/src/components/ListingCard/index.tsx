@@ -15,7 +15,7 @@ interface Props {
     };
 }
 
-const { Text, Title } = Typography;
+const { Text, Title, Paragraph } = Typography;
 
 export const ListingCard = ({ listing }: Props) => {
     const { id, title, image, address, price, numOfGuests } = listing;
@@ -28,19 +28,33 @@ export const ListingCard = ({ listing }: Props) => {
                 backgroundSize: "cover",
                 backgroundPosition: "50%",
             }} />}>
-                <Title level={4} >
-                    {formatListingPrice(price)}
-                    <span>/day</span>
-                </Title>
-                <Text strong ellipsis >
-                    {title}
-                </Text>
-                <Text ellipsis>
-                    {address}
-                </Text>
-                <div>
-                    <UserOutlined style={{ color: iconColor }} />
-                    <Text>{numOfGuests} guests </Text>
+                <div style={{
+                    overflow: "hidden",
+                    whiteSpace: "nowrap",
+                    textOverflow: "ellipsis",
+                }}>
+                    <div style={{paddingBottom: "20px"}}>
+                        <Paragraph>
+                            <Title level={4}>
+                                {formatListingPrice(price)}
+                                <span>/day</span>
+                            </Title>
+                        </Paragraph>
+                        <Paragraph>
+                            <Text strong ellipsis>
+                                {title}
+                            </Text>
+                        </Paragraph>
+                        <Paragraph>
+                            <Text ellipsis type="secondary">
+                                {address}
+                            </Text>
+                        </Paragraph>
+                    </div>
+                    <div>
+                        <UserOutlined style={{ color: iconColor }} />
+                        <Text disabled>{numOfGuests} guests </Text>
+                    </div>
                 </div>
             </Card>
         </Link>

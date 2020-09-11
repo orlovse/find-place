@@ -27,7 +27,6 @@ export const ListingDetails = ({ listing }: Props) => {
                     <Link to={`/listings/${city}`} >
                         <EnvironmentOutlined style={{ color: iconColor }} /> {city}
                     </Link>
-
                     <Divider type="vertical" />
                     {address}
                 </Paragraph>
@@ -35,6 +34,8 @@ export const ListingDetails = ({ listing }: Props) => {
                     {title}
                 </Title>
             </div>
+
+            <Divider />
 
             <div>
                 <Link to={`/user/${host.id}`}>

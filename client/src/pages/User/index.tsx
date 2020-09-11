@@ -98,7 +98,7 @@ export const User = ({
     ) : null;
 
     return (
-        <Content>
+        <Content className="padding">
             {stripeErrorBanner}
             <Row gutter={12} justify="space-between">
                 <Col xs={24}>{userProfileElement}</Col>

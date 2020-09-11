@@ -149,16 +149,13 @@ export const ListingCreateBooking = ({
                         type="primary"
                         disabled={buttonDisabled}
                         onClick={() => setModalVisible(true)}
+                        style={{ display: "block", margin: "0 auto 10px"}}
                     >Request to book</Button>
-                    <Text type="secondary" mark>{buttonMessage}</Text>
+                    <Paragraph>
+                        <Text type="secondary" mark>{buttonMessage}</Text>
+                    </Paragraph>
                 </Col>
             </Row>
-
-
-
-
-
-
         </Card>
     );
 }

@@ -7,12 +7,65 @@ import dubaiImage from "./assets/dubai.jpg";
 import losAngelesImage from "./assets/los-angeles.jpg";
 import londonImage from "./assets/london.jpg";
 
+import styles from "./styles.module.css";
+
 const { Title } =  Typography;
 const { Search } = Input;
 
 interface Props {
     onSearch: (value: string) => void;
 }
+
+const cards = [
+    {
+        id: 11111,
+        name: "Toronto",
+        link: "/listings/toronto",
+        image: torontoImage,
+    },
+    {
+        id: 22222,
+        name: "Dubai" ,
+        link: "/listings/dubai",
+        image: dubaiImage,
+    },
+    {
+        id: 33333,
+        name: "Los Angeles",
+        link: "/listings/los%20angeles",
+        image: losAngelesImage,
+    },
+    {
+        id: 4444,
+        name: "London",
+        link: "/listings/los%20angeles",
+        image: londonImage,
+    },
+];
+
+const cardsList = cards.map(card => (
+    <Col xs={12} md={6} key={card.id}>
+        <Link to={card.link}>
+            <Card 
+                className={styles.card} 
+                bodyStyle={{
+                    paddingTop: "0",
+                    paddingBottom: "0",
+                    height: "0",
+                    textAlign: "center",
+                    fontSize: "20px",
+                    color: "#fff",
+                    fontWeight: "bold",
+                    position: "relative",
+                    bottom: "45px"
+                }}
+                cover={<img alt={card.name} src={card.image} />}
+            >
+                {card.name}
+            </Card>
+        </Link>
+    </Col>
+))
 
 export const HomeHero = ({ onSearch }: Props) => {
     return (
@@ -23,36 +76,10 @@ export const HomeHero = ({ onSearch }: Props) => {
                 size="large"
                 enterButton
                 onSearch={onSearch}
+                className={styles.search}
             />
-            <Row gutter={12}>
-                <Col xs={12} md={6}>
-                    <Link to="/listings/toronto">
-                        <Card cover={<img alt="Toronto" src={torontoImage} />}>
-                            Toronto
-                        </Card>
-                    </Link>
-                </Col>
-                <Col xs={12} md={6}>
-                    <Link to="/listings/dubai">
-                        <Card cover={<img alt="Dubai" src={dubaiImage} />}>
-                            Dubai
-                        </Card>
-                    </Link>
-                </Col>
-                <Col xs={0} md={6}>
-                    <Link to="/listings/los%20angeles">
-                        <Card cover={<img alt="Los Angeles" src={losAngelesImage} />}>
-                            Los Angeles
-                        </Card>
-                    </Link>
-                </Col>
-                <Col xs={0} md={6}>
-                    <Link to="/listings/london">
-                        <Card cover={<img alt="London" src={londonImage} />}>
-                            London
-                        </Card>
-                    </Link>
-                </Col>
+            <Row gutter={12} >
+                {cardsList}
             </Row>
         </div>
     )

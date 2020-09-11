@@ -1,0 +1,24 @@
+.home {
+    padding: 60px 120px;
+    background-image: url(/static/media/map-background.c21df147.jpg);
+    background-repeat: no-repeat;
+    background-position: 10% 0;
+  }
+
+@media (max-width: 75em) {
+    .home {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}
+
+.listings {
+    padding: 40px 0 20px;
+}
+
+.section{
+    padding: 40px 0;
+    max-width: 700px;
+    text-align: center;
+    margin: 0 auto;
+  }

@@ -57,7 +57,7 @@ export const Listings = ({ match }: RouteComponentProps<MatchParams>) => {
     const listingsSectionElement = listings && listings.result.length ? (
         <div>
             <Affix offsetTop={64}>
-                <Row justify="space-between">
+                <Row justify="space-between" style={{  background: "#fff", padding: "10px 0"}}>
                     <Col>
                         <ListingsFilters filter={filter} setFilter={setFilter} />
                     </Col>
@@ -106,7 +106,7 @@ export const Listings = ({ match }: RouteComponentProps<MatchParams>) => {
     ) : null;
 
     return (
-        <Content>
+        <Content className="padding">
             {listingsRegionElement}
             {listingsSectionElement}
         </Content>

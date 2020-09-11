@@ -66,7 +66,6 @@ export const Host = ({ viewer }: Props ) => {
       };
 
     const handleHostListing = (values: any) => {
-        console.log(values)
         const fullAddress = `${values.address}, ${values.city}, ${values.state}, ${values.postalCode}`;
         const input = {
             ...values,
@@ -124,7 +123,7 @@ export const Host = ({ viewer }: Props ) => {
     }
 
     return (
-        <Content>
+        <Content className="padding" style={{maxWidth: "900px", margin: "0 auto"}}>
             <Form  
                 layout="vertical" 
                 onFinish={handleHostListing}

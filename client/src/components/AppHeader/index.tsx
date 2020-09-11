@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react";
 import { Link, withRouter, RouteComponentProps } from "react-router-dom";
 import { MenuItems } from "../MenuItems";
 import { Viewer } from "../../lib/types";
-import { Input, Layout, Row, Col } from "antd";
-import { HomeOutlined } from '@ant-design/icons';
+import { Input, Layout } from "antd";
 import { displayErrorMessage } from "../../lib/utils";
+
+import logo from "./assets/logo.png";
 
 interface Props {
     viewer: Viewer;
@@ -43,27 +44,26 @@ export const AppHeader = withRouter(({viewer, setViewer, location, history}: Pro
     }
 
     return (
-        <Header style={{background: "white", boxShadow: "0 2px 8px #f0f1f2"}}>
-            <Row>
-                <Col span={1}>
-                    <Link to="/">
-                        <HomeOutlined />
-                    </Link>                
-                </Col>
-                <Col flex={1}>
-                    <Search 
-                        placeholder="Search"
-                        enterButton
-                        value={search}
-                        onChange={event => setSearch(event.target.value)}
-                        onSearch={onSearch}
-                        style={{transform: "translate(0, 50%)"}}
-                    />
-                </Col>
-                <Col>
-                    <MenuItems viewer={viewer} setViewer={setViewer} />
-                </Col>
-            </Row>
-        </Header>
+        <Header className="app-header">
+        <div className="app-header__logo-search-section">
+          <div className="app-header__logo">
+            <Link to="/">
+              <img src={logo} alt="App logo" />
+            </Link>
+          </div>
+          <div className="app-header__search-input">
+            <Search
+              placeholder="Search 'London'"
+              enterButton
+              value={search}
+              onChange={event => setSearch(event.target.value)}
+              onSearch={onSearch}
+            />
+          </div>
+        </div>
+        <div className="app-header__menu-section">
+          <MenuItems viewer={viewer} setViewer={setViewer} />
+        </div>
+      </Header>
     )
 })

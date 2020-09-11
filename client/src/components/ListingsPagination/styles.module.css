@@ -1,0 +1,9 @@
+.listings-pagination {
+    padding: 10px 0;
+    float: right;
+  }
+  @media (max-width: 48em) {
+    .listings-pagination {
+      float: none;
+    }
+  }

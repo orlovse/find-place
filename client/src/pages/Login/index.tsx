@@ -8,14 +8,14 @@ import { LogIn as LogInData, LogInVariables } from "../../lib/graphql/mutations/
 import { AuthUrl as AuthUrlData } from "../../lib/graphql/queries/AuthUrl/__generated__/AuthUrl";
 import { Viewer } from "../../lib/types";
 import { displaySuccessNotification, displayErrorMessage } from "../../lib/utils";
-import { Button, Card, Layout, Spin, Typography } from "antd";
+import { Button, Card, Layout, Spin, Row, Typography } from "antd";
 
 interface Props {
     setViewer: (viewer: Viewer) => void;
 }
 
 const { Content } = Layout;
-const { Text, Title } = Typography;
+const { Paragraph, Text, Title } = Typography;
 
 export const Login = ({ setViewer }: Props) => {
     const client = useApolloClient();
@@ -59,7 +59,9 @@ export const Login = ({ setViewer }: Props) => {
     if(logInLoading) {
         return (
             <Content>
-                <Spin size="large" tip="Logging you in..." />
+                <Row justify="center" align="middle" style={{height:"100vh"}}>
+                    <Spin size="large" tip="Logging you in..." />
+                </Row>
             </Content>
         );
     }
@@ -75,21 +77,29 @@ export const Login = ({ setViewer }: Props) => {
 
     return (
         <Content>
-            { logInErrorBannerElement }
-            <Card>
-                <div>
-                    <Title level={3}>
-                        Log in to FindPlace
-                    </Title>
-                    <Text>Sign om with Google to start booking avaible</Text>
-                </div>
-                <Button type="primary" onClick={handleAuthorize}>
-                    <span>
-                        Log in with Google
-                    </span>
-                </Button>
-                <Text type="secondary">Note: by signing in you will be redirected to sign in with your Google account.</Text>
-            </Card>
+            <Row justify="center" align="middle" style={{height:"100vh"}}>
+                { logInErrorBannerElement }
+                <Card style={{  width: "450px", margin: "0 auto", textAlign: "center", padding: "10px 0 20px"}}>
+                    <Paragraph>
+                        <Title level={3}>
+                            Log in to FindPlace
+                        </Title>
+                    </Paragraph>
+                    <Paragraph>
+                        <Text>Sign om with Google to start booking avaible</Text>
+                    </Paragraph>
+                    <Paragraph>
+                        <Button type="primary" onClick={handleAuthorize}>
+                            <span>
+                                Log in with Google
+                            </span>
+                        </Button>
+                    </Paragraph>
+                    <Paragraph>
+                        <Text type="secondary">Note: by signing in you will be redirected to sign in with your Google account.</Text>
+                    </Paragraph>
+                </Card>
+            </Row>
         </Content>
     )
 }

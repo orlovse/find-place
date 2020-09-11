@@ -1,5 +1,6 @@
 import React from "react";
 import { Pagination } from "antd";
+import styles from "./styles.module.css"
 
 interface Props {
     total: number;
@@ -16,6 +17,7 @@ export const ListingsPagination = ({total, page, limit, setPage}: Props) => {
             hideOnSinglePage
             showLessItems
             onChange={(page: number) => setPage(page)}
+            className={styles.listingsPagination}
         />
     );
 }

@@ -63,7 +63,7 @@ export const UserBookings = ({
     ) : null;
 
     const userBookingsElement = userBookingsList ? (
-        <div>
+        <div style={{paddingTop: "40px"}}>
             <Title level={4}>
                 Bookings
             </Title>

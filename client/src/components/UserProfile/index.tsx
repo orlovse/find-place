@@ -88,7 +88,7 @@ export const UserProfile = ({user, viewer, viewerIsUser, setViewer, handleUserRe
     ) : null;
 
     return (
-        <Card style={{textAlign: "center"}}>
+        <Card style={{maxWidth: "400px", margin: "0 auto",textAlign: "center"}}>
             <Avatar size={100} src={user.avatar} />
             <Divider />
             <Title level={4}>Details</Title>

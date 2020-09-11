@@ -12,6 +12,8 @@ import mapBackground from "./assets/map-background.jpg";
 import sanFransiscoImage from "./assets/san-fransisco.jpg";
 import cancunImage from "./assets/cancun.jpg";
 
+import styles from "./style.module.css";
+
 const { Content } = Layout;
 const { Paragraph, Title } = Typography;
 
@@ -50,28 +52,21 @@ export const Home = ({ history }: RouteComponentProps) => {
     }
 
     return (
-        <Content style={{ 
-            backgroundImage: `url(${mapBackground})`,
-            padding: "60px 120px",
-            backgroundRepeat: "no-repeat",
-            backgroundPosition: "10% 0"
-        }}>
+        <Content className={styles.home} style={{ backgroundImage: `url(${mapBackground})` }}>
             <HomeHero onSearch={onSearch} />
-            <Row justify="center">
+            <div className={styles.section}>
                 <Title level={2}>
                     Your guide for all things rental
                 </Title>                
-            </Row>
-            <Row justify="center">
+
                 <Paragraph>
                     Helping you make the best decisions in renting your last minute locations.
                 </Paragraph>
-            </Row>
-            <Row justify="center">
+
                 <Link to="/listings/united%20states" className="ant-btn ant-btn-primary ant-btn-lg">
                     Popular listings in the United States
                 </Link>
-            </Row>
+            </div>
 
             {renderListingsSection()}
 
@@ -83,14 +78,14 @@ export const Home = ({ history }: RouteComponentProps) => {
                     <Col xs={24} sm={12}>
                         <Link to="/listings/san%20fransisco">
                             <div>
-                                <img src={sanFransiscoImage} alt="San Fransisco" />
+                                <img src={sanFransiscoImage} style={{width: "100%"}} alt="San Fransisco" />
                             </div>
                         </Link>
                     </Col>
                     <Col xs={24} sm={12}>
                         <Link to="/listings/cancun">
                             <div>
-                                <img src={cancunImage} alt="Cancun" />
+                                <img src={cancunImage} style={{width: "100%"}} alt="Cancun" />
                             </div>
                         </Link>
                     </Col>                

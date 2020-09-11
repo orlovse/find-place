@@ -48,7 +48,7 @@ export const UserListings = ({
     );
 
     return (
-        <div>
+        <div style={{paddingTop: "40px"}}>
             <Title level={4}>
                 Listings
             </Title>
